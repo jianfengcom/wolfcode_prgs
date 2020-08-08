@@ -16,16 +16,16 @@ class Apple3 implements Runnable {
 
     private void eat() {
         lock.lock();
-        if (num > 0) {
-            try {
+        try {
+            if (num > 0) {
                 System.out.println(Thread.currentThread().getName() + "吃了Up破:" + num);
                 Thread.sleep(40);
                 num--;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-                lock.unlock();
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
         }
     }
 }
