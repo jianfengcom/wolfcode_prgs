@@ -35,7 +35,7 @@ public class BasketBallerDemo {
         // 8.打印
     }
 
-    private static Integer delete(int index) { // 0 len-1
+    private static Integer delete(int index) {
         if (index == size - 1) {
             Integer temp = players[index];
             players[index] = null;
@@ -57,7 +57,9 @@ public class BasketBallerDemo {
 
     private static void update(Integer source, Integer target) {
         int index = getIndexByPlayNum(source);
-        players[index] = target;
+        if (index != -1) {
+            players[index] = target;
+        }
     }
 
     private static Integer set(int index, Integer newNum) {
@@ -67,12 +69,15 @@ public class BasketBallerDemo {
     }
 
     private static int getIndexByPlayNum(Integer playNum) {
+        if (playNum == null) {
+            return -1;
+        }
         for (int i = 0; i < size; i++) {
             if (players[i].equals(playNum)) {
                 return i;
             }
         }
-        return - 1;
+        return -1;
     }
 
     private static String print() {
@@ -91,15 +96,24 @@ public class BasketBallerDemo {
     }
 
     private static Integer get(int index) {
+        if (index < 0 || index > players.length - 1) {
+            throw new IllegalArgumentException("参数越界");
+        }
         return players[index];
     }
 
     public static void add(Integer playNum) {
+        if (playNum == null) {
+            return;
+        }
         players[size] = playNum;
         size++;
     }
 
     public static void init(int initialCapacity) {
+        if (initialCapacity <= 0) {
+            throw new IllegalArgumentException("数据初始化容量必须大于0");
+        }
         players = new Integer[initialCapacity];
     }
 }
