@@ -3,7 +3,7 @@ package com.example.array;
 public class BasketballPlayerDemo {
     public static void main(String[] args) {
         // 1.初始化容量
-        PlayerList.init(5);
+        PlayerList.init(0);
         // 2.添加球衣号码
         PlayerList.add(11);
         PlayerList.add(22);

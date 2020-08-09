@@ -83,14 +83,14 @@ public class PlayerList {
         }
         if (size == players.length) {
             // 扩容
-            players = Arrays.copyOf(players, size * 2);
+            players = Arrays.copyOf(players, size * 2 + 1);
         }
         players[size] = playNum;
         size++;
     }
 
     public static void init(int initialCapacity) {
-        if (initialCapacity <= 0) {
+        if (initialCapacity < 0) {
             throw new IllegalArgumentException("数据初始化容量必须大于0");
         }
         players = new Integer[initialCapacity];
