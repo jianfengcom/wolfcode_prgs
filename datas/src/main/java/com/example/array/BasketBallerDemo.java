@@ -1,5 +1,7 @@
 package com.example.array;
 
+import java.util.Arrays;
+
 public class BasketBallerDemo {
     private static Integer[] players;
     private static int size;
@@ -105,6 +107,10 @@ public class BasketBallerDemo {
     public static void add(Integer playNum) {
         if (playNum == null) {
             return;
+        }
+        if (size == players.length) {
+            // 扩容
+            players = Arrays.copyOf(players, size * 2);
         }
         players[size] = playNum;
         size++;
