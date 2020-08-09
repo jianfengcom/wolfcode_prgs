@@ -2,42 +2,15 @@ package com.example.array;
 
 import java.util.Arrays;
 
-public class BasketBallerDemo {
+public class PlayerList {
     private static Integer[] players;
     private static int size;
 
-    public static void main(String[] args) {
-        // 1.初始化容量
-        init(5);
-        // 2.添加球衣号码
-        add(11);
-        add(22);
-        add(33);
-        add(44);
-        add(55);
-        print();
-        // 3.获取指定位置的球衣号码
-        System.out.println(get(2));
-        // 4.获取指定球衣号码的位置
-        System.out.println(getIndexByPlayNum(33));
-        // 5.设置指定位置的球衣号码
-        System.out.println(set(2, 2333));
-        print();
-        // 6.替换球衣号码 8 => 24
-        update(22, 2);
-        print();
-        // 7.删除
-        delete(4);
-        delete(4);
-        print();
-        System.out.println(size);
-        delete(3);
-        print();
-        System.out.println(size);
-        // 8.打印
+    public static int getSize() {
+        return size;
     }
 
-    private static Integer delete(int index) {
+    public static Integer delete(int index) {
         if (index == size - 1) {
             Integer temp = players[index];
             players[index] = null;
@@ -57,20 +30,20 @@ public class BasketBallerDemo {
         return null;
     }
 
-    private static void update(Integer source, Integer target) {
+    public static void update(Integer source, Integer target) {
         int index = getIndexByPlayNum(source);
         if (index != -1) {
             players[index] = target;
         }
     }
 
-    private static Integer set(int index, Integer newNum) {
+    public static Integer set(int index, Integer newNum) {
         Integer oldNum = get(index);
         players[index] = newNum;
         return oldNum;
     }
 
-    private static int getIndexByPlayNum(Integer playNum) {
+    public static int getIndexByPlayNum(Integer playNum) {
         if (playNum == null) {
             return -1;
         }
@@ -82,7 +55,7 @@ public class BasketBallerDemo {
         return -1;
     }
 
-    private static String print() {
+    public static String print() {
         StringBuilder builder = new StringBuilder(players.length * 2 + 1);
         builder.append("[");
         for (int i = 0; i < players.length; i++) {
@@ -97,7 +70,7 @@ public class BasketBallerDemo {
         return builder.toString();
     }
 
-    private static Integer get(int index) {
+    public static Integer get(int index) {
         if (index < 0 || index > players.length - 1) {
             throw new IllegalArgumentException("参数越界");
         }
