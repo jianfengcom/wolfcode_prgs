@@ -6,62 +6,69 @@ public class MyArrayList {
     private Object[] elements; 
     private int size;
 
-    final private int DEFAULT_CAPACITY = 10;
+    final static private int DEFAULT_CAPACITY = 10;
+    final static private Object[] DEFAULT_EMPTY_LIST = {};
+
+    private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
     public MyArrayList() {
         elements = new Object[DEFAULT_CAPACITY];
     }
 
     public MyArrayList(int initialCapacity) {
-        if (initialCapacity < 0) {
+        if (initialCapacity == 0) {
+            elements = DEFAULT_EMPTY_LIST;
+        } else if (initialCapacity > 0) {
+            elements = new Object[initialCapacity];
+        } else {
             throw new IllegalArgumentException("初始化容量不能小于0");
         }
-        elements = new Object[initialCapacity];
     }
 
     public void add(Object ele) {
-        if (ele == null) {
-            return;
-        }
-        if (size == elements.length) {
-            // 扩容
-            elements = Arrays.copyOf(elements, size * 2 + 1);
-        }
+        ensureCapacity(size + 1);
         elements[size] = ele;
         size++;
     }
 
-    public Object get(int index) {
-        if (index < 0 || index > elements.length - 1) {
-            throw new IllegalArgumentException("参数越界");
+    private void ensureCapacity(int minCapacity) {
+        if (minCapacity > elements.length) {
+            int newCapacity = minCapacity + (minCapacity >> 1);
+            if (newCapacity > MAX_ARRAY_SIZE) {
+                newCapacity = newCapacity > MAX_ARRAY_SIZE ? Integer.MAX_VALUE : MAX_ARRAY_SIZE;
+            }
+            elements = Arrays.copyOf(elements, newCapacity);
         }
+    }
+
+    public Object get(int index) {
+        rangeCheck(index);
         return elements[index];
     }
 
     public Object remove(int index) {
-        if (index == size - 1) {
-            Object temp = elements[index];
-            elements[index] = null;
-            size--;
-            return temp;
+        rangeCheck(index);
+        Object oldEle = elements[index];
+        if (index == size) {
+            elements[size--] = null;
+        } else {
+            System.arraycopy(elements, index, elements, index + 1, size - index);
+            elements[size--] = null;
         }
-
-        for (int i = index; i < size - 1; i++) {
-            elements[i] = elements[i + 1];
-            if (i == size - 2) {
-                Object temp = elements[i + 1];
-                elements[i + 1] = null;
-                size--;
-                return temp;
-            }
-        }
-        return null;
+        return oldEle;
     }
 
-    public Object set(int index, Object newNum) {
-        Object oldNum = get(index);
-        elements[index] = newNum;
-        return oldNum;
+    private void rangeCheck(int index) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("参数越界");
+        }
+    }
+
+    public Object set(int index, Object newEle) {
+        rangeCheck(index);
+        Object oldEle = elements[index];
+        elements[index] = newEle;
+        return oldEle;
     }
 
     public String toString() {
@@ -92,5 +99,12 @@ public class MyArrayList {
 
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    public void clear() {
+        for (int i = 0; i < elements.length; i++) {
+            elements[i] = null;
+        }
+        size = 0;
     }
 }

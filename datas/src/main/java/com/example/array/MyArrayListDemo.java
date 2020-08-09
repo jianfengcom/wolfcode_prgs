@@ -9,5 +9,6 @@ public class MyArrayListDemo {
         System.out.println(list);
         System.out.println(list.size());
         System.out.println(list.isEmpty());
+        list.clear();
     }
 }
