@@ -27,8 +27,7 @@ public class MyArrayList {
 
     public void add(Object ele) {
         ensureCapacity(size + 1);
-        elements[size] = ele;
-        size++;
+        elements[size++] = ele;
     }
 
     private void ensureCapacity(int minCapacity) {
@@ -49,10 +48,10 @@ public class MyArrayList {
     public Object remove(int index) {
         rangeCheck(index);
         Object oldEle = elements[index];
-        if (index == size) {
+        if (index == size - 1) {
             elements[size--] = null;
         } else {
-            System.arraycopy(elements, index, elements, index + 1, size - index);
+            System.arraycopy(elements, index + 1, elements, index, size - index);
             elements[size--] = null;
         }
         return oldEle;

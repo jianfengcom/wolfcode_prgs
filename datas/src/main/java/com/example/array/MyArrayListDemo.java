@@ -6,6 +6,10 @@ public class MyArrayListDemo {
         list.add("A");
         list.add("B");
         list.add("C");
+        list.add("D");
+        list.add("E");
+        System.out.println(list);
+        list.remove(4);
         System.out.println(list);
         System.out.println(list.size());
         System.out.println(list.isEmpty());
