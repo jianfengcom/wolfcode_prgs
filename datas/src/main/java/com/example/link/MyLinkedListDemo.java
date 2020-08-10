@@ -9,6 +9,7 @@ public class MyLinkedListDemo {
         linkedList.addLast("D");
         linkedList.addFirst("A");
         linkedList.addLast("E");
+        System.out.println(linkedList);
         linkedList.addLast("D");
         linkedList.addLast("B");
 

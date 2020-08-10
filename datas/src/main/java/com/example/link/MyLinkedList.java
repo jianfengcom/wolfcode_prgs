@@ -12,7 +12,9 @@ public class MyLinkedList {
         }
         StringBuilder builder = new StringBuilder(size * 2 + 1);
         builder.append("[");
-        builder.append(first.ele);
+
+        // old
+        /*builder.append(first.ele);
         Node temp = first;
         for (;;) {
             temp = temp.next;
@@ -22,6 +24,16 @@ public class MyLinkedList {
             } else {
                 builder.append("]");
                 break;
+            }
+        }*/
+
+        // new
+        for (Node item = first; item != null; item = item.next) {
+            builder.append(item.ele);
+            if (item.next != null) {
+                builder.append(",");
+            } else {
+                builder.append("]");
             }
         }
         return builder.toString();
@@ -104,6 +116,12 @@ public class MyLinkedList {
         }
     }
 
+    /**
+     * 删除匹配的第一个链点
+     * Removes the first occurrence of the specified element from this list
+     * @param ele
+     * @return
+     */
     public boolean remove(Object ele) {
         if (ele == null) {
             for (Node item = first; item != null; item = item.next) {
