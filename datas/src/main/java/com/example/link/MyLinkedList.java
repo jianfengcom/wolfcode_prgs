@@ -5,14 +5,6 @@ public class MyLinkedList {
     private Node last;
     private int size;
 
-    public Node getFirst() {
-        return first;
-    }
-
-    public Node getLast() {
-        return last;
-    }
-
     @Override
     public String toString() {
         if (size == 0) {
@@ -22,7 +14,7 @@ public class MyLinkedList {
         builder.append("[");
         builder.append(first.ele);
         Node temp = first;
-        for (; ; ) {
+        for (;;) {
             temp = temp.next;
             if (temp != null) {
                 builder.append(",");
@@ -39,48 +31,49 @@ public class MyLinkedList {
         return size;
     }
 
-    class Node {
-        private Node prev;
-        private Node next;
-        protected Object ele;
+    private static class Node {
+        Node prev;
+        Node next;
+        Object ele;
 
-        private Node(Object ele) {
+        Node(Node prev, Object ele, Node next) {
+            this.prev = prev;
+            this.next = next;
             this.ele = ele;
         }
     }
 
     public void addLast(Object ele) {
-        Node node = new Node(ele);
-        if (size == 0) {
+        final Node l = last;
+        Node node = new Node(l, ele, null);
+        if (l == null) {
             first = node;
-            last = node;
         } else {
-            this.last.next = node;
-            node.prev = this.last;
-            this.last = node;
+            l.next = node;
         }
+        last = node;
         size++;
     }
 
     public void addFirst(Object ele) {
-        Node node = new Node(ele);
-        if (size == 0) {
-            first = node;
+        final Node f = first;
+        Node node = new Node(null, ele, f);
+        if (f == null) {
             last = node;
         } else {
-            this.first.prev = node;
-            node.next = this.first;
-            this.first = node;
+            f.prev = node;
         }
+        first = node;
         size++;
     }
 
     /**
-     * 删除所有匹配的链点
+     * todo
+     * 删除所有匹配的链点 (旧)
      *
      * @param ele
      */
-    public void remove(Object ele) {
+    public void removeOld(Object ele) {
         Node temp = this.first;
         for (int i = 0; i < size; i++) {
             if (temp.ele.equals(ele)) {
@@ -109,5 +102,47 @@ public class MyLinkedList {
                 temp = temp.next;
             }
         }
+    }
+
+    public boolean remove(Object ele) {
+        if (ele == null) {
+            for (Node item = first; item != null; item = item.next) {
+                if (item.ele == null) {
+                    unLink(item);
+                    return true;
+                }
+            }
+        } else {
+            for (Node item = first; item != null; item = item.next) {
+                if (ele.equals(item.ele)) { // item.ele 可能为null
+                    unLink(item);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private Object unLink(Node item) { // 断联
+        final Object element = item.ele;
+        final Node prev = item.prev;
+        final Node next = item.next;
+
+        if (prev == null) {
+            first = next;
+        } else {
+            prev.next = next;
+            item.prev = null;
+        }
+
+        if (next == null) {
+            last = prev;
+        } else {
+            next.prev = prev;
+            item.next = null;
+        }
+        item.ele = null;
+        size--;
+        return element;
     }
 }

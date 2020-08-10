@@ -16,8 +16,6 @@ public class MyLinkedListDemo {
         linkedList.remove("D");
         System.out.println(linkedList);
 
-        System.out.println(linkedList.getFirst().ele);
-        System.out.println(linkedList.getLast().ele);
         System.out.println(linkedList.size());
     }
 }
