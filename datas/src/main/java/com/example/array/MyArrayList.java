@@ -110,9 +110,26 @@ public class MyArrayList {
     }
 
     public void clear() {
-        for (int i = 0; i < elements.length; i++) {
+        for (int i = 0; i < size; i++) {
             elements[i] = null;
         }
         size = 0;
+    }
+
+    public int indexOf(Object ele) {
+        if (ele == null) {
+            for (int i = 0; i < size; i++) {
+                if (elements[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (ele.equals(elements[i])) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 }
