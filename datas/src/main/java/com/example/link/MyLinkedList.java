@@ -64,7 +64,7 @@ public class MyLinkedList {
 
     public void addLast(Object ele) {
         final Node l = last;
-        Node node = new Node(l, ele, null);
+        final Node node = new Node(l, ele, null);
         if (l == null) {
             first = node;
         } else {
@@ -76,7 +76,7 @@ public class MyLinkedList {
 
     public void addFirst(Object ele) {
         final Node f = first;
-        Node node = new Node(null, ele, f);
+        final Node node = new Node(null, ele, f);
         if (f == null) {
             last = node;
         } else {
@@ -148,6 +148,14 @@ public class MyLinkedList {
         return false;
     }
 
+    public Object removeFirst() {
+        final Node f = first;
+        if (f == null) {
+            throw new NoSuchElementException();
+        }
+        return unLink(f);
+    }
+
     public Object removeLast() {
         final Node l = last;
         if (l == null) {
@@ -185,5 +193,13 @@ public class MyLinkedList {
             throw new NoSuchElementException();
         }
         return l.ele;
+    }
+
+    public Object getFirst() {
+        final Node f = first;
+        if (f == null) {
+            throw new NoSuchElementException();
+        }
+        return f.ele;
     }
 }

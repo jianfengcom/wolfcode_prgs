@@ -31,6 +31,14 @@ public class MyArrayList {
         return true;
     }
 
+    public void add(int index, Object ele) {
+        rangeCheck(index);
+        ensureCapacity(size + 1);
+        System.arraycopy(elements, index, elements, index + 1, size - index);
+        elements[index] = ele;
+        size++;
+    }
+
     private void ensureCapacity(int minCapacity) {
         if (minCapacity > elements.length) {
             int newCapacity = minCapacity + (minCapacity >> 1);
@@ -59,7 +67,7 @@ public class MyArrayList {
     }
 
     private void rangeCheck(int index) {
-        if (index < 0 || index >= size) {
+        if (index < 0 || index > size) {
             throw new IllegalArgumentException("参数越界");
         }
     }
