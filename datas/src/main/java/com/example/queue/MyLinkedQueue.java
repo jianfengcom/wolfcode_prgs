@@ -1,28 +1,25 @@
 package com.example.queue;
 
-import com.example.array.MyArrayList;
+import com.example.link.MyLinkedList;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class MyQueue extends ArrayList {
-
+public class MyLinkedQueue extends MyLinkedList {
     public boolean add(Object ele) { // offer
         return super.add(ele);
     }
 
     public Object poll() { // remove
-        int last = super.size() - 1;
-        return super.remove(last);
+        return super.removeLast();
     }
 
     public Object peek() { // element
-        int last = super.size() - 1;
-        return super.get(last);
+        return super.getLast();
     }
 
     public static void main(String[] args) {
         // FIFO
-        MyQueue queue = new MyQueue();
+        MyLinkedQueue queue = new MyLinkedQueue();
         queue.add("fuck");
         queue.add("hey");
         queue.add("biu");
