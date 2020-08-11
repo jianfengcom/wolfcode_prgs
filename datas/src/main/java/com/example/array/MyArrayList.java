@@ -25,9 +25,10 @@ public class MyArrayList {
         }
     }
 
-    public void add(Object ele) {
+    public boolean add(Object ele) {
         ensureCapacity(size + 1);
         elements[size++] = ele;
+        return true;
     }
 
     private void ensureCapacity(int minCapacity) {
