@@ -1,5 +1,7 @@
 package com.example.link;
 
+import java.util.NoSuchElementException;
+
 public class MyLinkedList {
     private Node first;
     private Node last;
@@ -53,6 +55,11 @@ public class MyLinkedList {
             this.next = next;
             this.ele = ele;
         }
+    }
+
+    public boolean add(Object ele) {
+        addLast(ele);
+        return true;
     }
 
     public void addLast(Object ele) {
@@ -141,6 +148,14 @@ public class MyLinkedList {
         return false;
     }
 
+    public Object removeLast() {
+        final Node l = last;
+        if (l == null) {
+            throw new NoSuchElementException();
+        }
+        return unLink(l);
+    }
+
     private Object unLink(Node item) { // 断联
         final Object element = item.ele;
         final Node prev = item.prev;
@@ -162,5 +177,13 @@ public class MyLinkedList {
         item.ele = null;
         size--;
         return element;
+    }
+
+    public Object getLast() {
+        final Node l = last;
+        if (l == null) {
+            throw new NoSuchElementException();
+        }
+        return l.ele;
     }
 }
