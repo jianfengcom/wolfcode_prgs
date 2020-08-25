@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field">
+    <class name="com.example.crud.domain.User" table="t_user">
+        <id name="id" column="uid" type="long"></id>
+
+        <property name="name" column="uname"/>
+        <property name="salary" column="usalary"/>
+        <property name="hiredate" column="uhiredate"/>
+    </class>
+</hibernate-mapping>
