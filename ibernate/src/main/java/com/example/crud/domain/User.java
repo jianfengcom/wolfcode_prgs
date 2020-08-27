@@ -1,14 +1,14 @@
 package com.example.crud.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Setter@Getter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     private Long id;
     private String name;
