@@ -17,6 +17,7 @@ public class UserDaoImpl implements IUserDao {
         Transaction tx = session.beginTransaction(); // 事务的打开方式, 还有一种
         session.save(user);
         tx.commit();
+        session.close();
     }
 
     @Override
@@ -25,6 +26,7 @@ public class UserDaoImpl implements IUserDao {
         session.beginTransaction();
         session.update(user);
         session.getTransaction().commit();
+        session.close();
     }
 
     @Override
@@ -34,24 +36,25 @@ public class UserDaoImpl implements IUserDao {
         User user = new User(); user.setId(userId);
         session.delete(user);
         session.getTransaction().commit();
+        session.close();
     }
 
     @Override
     public User get(Long userId) {
         Session session = HibernateUtils.openSession();
-        User user = session.find(User.class, userId);
+        // session.find(User.class, userId); // find & get
+        User user = session.get(User.class, userId);
 
-        /*session.close();
-        factory.close();*/
+        session.close(); // session对象是线程不安全的 (connection 亦然)
+        // factory.close(); sessionFactory是线程安全的
         return user;
     }
 
     @Override
     public List<User> list() {
         Session session = HibernateUtils.openSession();
-        session.beginTransaction();
         List<User> users = session.createQuery("SELECT obj FROM User obj").list();
-        session.getTransaction().commit();
+        session.close();
         return users;
     }
 }
