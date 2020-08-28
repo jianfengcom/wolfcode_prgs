@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<hibernate-mapping default-access="field">
-    <class name="com.example.crud.domain.User" table="t_user">
+<hibernate-mapping default-access="field" package="com.example.crud.domain">
+    <class name="User" table="t_user">
         <id name="id" column="uid" type="long">
+            <!--native: 使用mysql本地的自增策略-->
             <generator class="native"/>
         </id>
 

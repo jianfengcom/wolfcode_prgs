@@ -5,6 +5,7 @@ import com.example.crud.domain.User;
 import com.example.crud.util.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -49,9 +50,9 @@ public class UserDaoImpl implements IUserDao {
     @Override
     public List<User> list() {
         Session session = HibernateUtils.openSession();
-        session.beginTransaction();
-        List<User> users = session.createQuery("SELECT obj FROM User obj").list();
-        session.getTransaction().commit();
+        String hql = "SELECT obj FROM User obj";
+        Query query = session.createQuery(hql); //创建查询对象
+        List<User> users = query.list();
         return users;
     }
 }
